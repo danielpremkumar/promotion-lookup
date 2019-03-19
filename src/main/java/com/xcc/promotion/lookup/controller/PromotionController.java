@@ -2,20 +2,15 @@ package com.xcc.promotion.lookup.controller;
 
 import com.xcc.promotion.lookup.manager.PromotionManager;
 import com.xcc.promotion.lookup.model.Promotion;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-
+@Api(value = "Promotions", description = "REST API for Promotions", tags = { "Promotions" })
 @RestController
 public class PromotionController {
     private static final Logger logger = LoggerFactory.getLogger(PromotionController.class);
@@ -36,8 +31,10 @@ public class PromotionController {
     )
     @RequestMapping(value = "/rest/promos", method = RequestMethod.GET)
     public @ResponseBody
-    List<Promotion> getAllActivePromotion() {
+    List<Promotion> getAllActivePromotion(@ApiParam(
+            value = "Possible values are JU,CA & DB, defaulted to CA if param is null" ,
+            example = "JU") @RequestParam String brand) {
         logger.info("Inside getAllActivePromotion method");
-        return promotionManager.getAllActivePromotion();
+        return promotionManager.getAllActivePromotion(brand);
     }
 }

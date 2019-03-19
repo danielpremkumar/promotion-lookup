@@ -19,16 +19,10 @@ import java.util.stream.Collectors;
 public class PromotionManager {
     private static final Logger logger = LoggerFactory.getLogger(PromotionManager.class);
 
-    @Autowired
-    @Qualifier("dbDataSource")
     private final DataSource dbDataSource;
 
-    @Autowired
-    @Qualifier("juDataSource")
     private final DataSource juDataSource;
 
-    @Autowired
-    @Qualifier("caDataSource")
     private final DataSource caDataSource;
 
     public PromotionManager(DataSource dbDataSource, DataSource juDataSource, DataSource caDataSource) {
@@ -36,7 +30,6 @@ public class PromotionManager {
         this.juDataSource = juDataSource;
         this.caDataSource = caDataSource;
     }
-
 
     public List<Promotion> getAllActivePromotion(String brand) {
         logger.info("Start getAllActivePromotion.");

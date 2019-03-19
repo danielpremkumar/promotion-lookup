@@ -60,7 +60,7 @@ public class OracleConfig {
         this.caUrl = caUrl;
     }
 
-    @Bean(name = "dbDataSource")
+    @Bean
     DataSource dbDataSource() throws SQLException {
         OracleDataSource dataSource = initDataSource();
         dataSource.setUser(username);
@@ -69,7 +69,7 @@ public class OracleConfig {
         return dataSource;
     }
 
-    @Bean(name = "caDataSource")
+    @Bean
     DataSource caDataSource() throws SQLException {
         OracleDataSource dataSource = initDataSource();
         dataSource.setUser(username);
@@ -78,7 +78,7 @@ public class OracleConfig {
         return dataSource;
     }
 
-    @Bean(name = "juDataSource")
+    @Bean
     DataSource juDataSource() throws SQLException {
         OracleDataSource dataSource = initDataSource();
         dataSource.setUser(username);

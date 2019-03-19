@@ -5,3 +5,5 @@ mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1
 # This project uses Spring Profiles to load the right datasources for different env.
 # Start the spring-boot app with param -Dspring.profiles.active=ca-perf for Catherines Performance Env.
 
+Swagger URL
+http://localhost:8083/swagger-ui.html

@@ -23,4 +23,9 @@ public class Promotion implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Promotion(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

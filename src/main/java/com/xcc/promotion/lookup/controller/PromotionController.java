@@ -14,16 +14,15 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @RestController
 public class PromotionController {
     private static final Logger logger = LoggerFactory.getLogger(PromotionController.class);
-    
-    @Autowired
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
-    public void setDataSource(DataSource dataSource) {
+    public PromotionController(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -31,19 +30,22 @@ public class PromotionController {
     public @ResponseBody
     List<Promotion> getAllActivePromotion() {
         logger.info("Start getAllActivePromotion.");
-        List<Promotion> promoList = new ArrayList<>();
+       // List<Promotion> promoList = new ArrayList<>();
         //JDBC Code - Start
         String query = "select id, name from Promotion";
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
         List<Map<String,Object>> promoRows = jdbcTemplate.queryForList(query);
-
-        for(Map<String,Object> promoRow : promoRows){
+        List<Promotion> promoList = promoRows.stream()
+                .map(record -> new Promotion(Integer.parseInt(String.valueOf(record.get("id"))),
+                        String.valueOf(record.get("name"))))
+                .collect(Collectors.toList());
+        /*for(Map<String,Object> promoRow : promoRows){
             Promotion promotion = new Promotion();
             promotion.setId(Integer.parseInt(String.valueOf(promoRow.get("id"))));
             promotion.setName(String.valueOf(promoRow.get("name")));
             promoList.add(promotion);
-        }
+        }*/
 
         return promoList;
     }

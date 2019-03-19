@@ -28,7 +28,7 @@ public class PromotionManager {
         String query = "select PE.EVENTIDENTIFIER,PS.DESCRIPTION,PE.STARTDATETIME ,PE.ENDDATETIME" +
                 " from PROMOTIONEVENT PE,PROMOTIONSET PS" +
                 " where PE.EVENTIDENTIFIER=PS.EVENTIDENTIFIER" +
-                " AND PE.STARTDATETIME >= sysdate -100" +
+                " AND PE.STARTDATETIME >= sysdate -1" +
                 " order by PE.STARTDATETIME";
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 

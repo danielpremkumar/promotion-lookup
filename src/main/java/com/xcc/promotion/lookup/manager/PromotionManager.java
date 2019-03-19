@@ -1,6 +1,5 @@
 package com.xcc.promotion.lookup.manager;
 
-import com.xcc.promotion.lookup.controller.PromotionController;
 import com.xcc.promotion.lookup.model.Promotion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

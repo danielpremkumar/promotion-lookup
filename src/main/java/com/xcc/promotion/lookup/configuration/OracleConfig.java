@@ -37,10 +37,15 @@ public class OracleConfig {
     @Bean
     DataSource dataSource() throws SQLException {
         OracleDataSource dataSource = new OracleDataSource();
+        // set cache properties
+        java.util.Properties prop = new java.util.Properties();
+        prop.setProperty("MinLimit", "1");
+        prop.setProperty("MaxLimit", "2");
         dataSource.setUser(username);
         dataSource.setPassword(password);
         dataSource.setURL(url);
         dataSource.setImplicitCachingEnabled(true);
+        dataSource.setConnectionProperties(prop);
         dataSource.setFastConnectionFailoverEnabled(true);
         return dataSource;
     }

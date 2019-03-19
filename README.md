@@ -7,3 +7,10 @@ mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1
 
 Swagger URL
 http://localhost:8083/swagger-ui.html
+
+
+To Generate Fat jar, run the below command
+mvnw package
+
+To execute the jar
+java -jar -Dspring.profiles.active=ju-perf promotion-lookup-0.0.1-SNAPSHOT.jar

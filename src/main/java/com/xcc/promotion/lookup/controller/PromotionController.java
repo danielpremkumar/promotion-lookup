@@ -3,7 +3,6 @@ package com.xcc.promotion.lookup.controller;
 import com.xcc.promotion.lookup.model.Promotion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,7 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,23 +30,20 @@ public class PromotionController {
     public @ResponseBody
     List<Promotion> getAllActivePromotion() {
         logger.info("Start getAllActivePromotion.");
-       // List<Promotion> promoList = new ArrayList<>();
-        //JDBC Code - Start
-        String query = "select id, name from Promotion";
+        String query = "select PE.EVENTIDENTIFIER,PS.DESCRIPTION,PE.STARTDATETIME ,PE.ENDDATETIME" +
+        " from PROMOTIONEVENT PE,PROMOTIONSET PS" +
+        " where PE.EVENTIDENTIFIER=PS.EVENTIDENTIFIER" +
+        " AND PE.STARTDATETIME >= sysdate -100" +
+        " order by PE.STARTDATETIME";
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
         List<Map<String,Object>> promoRows = jdbcTemplate.queryForList(query);
         List<Promotion> promoList = promoRows.stream()
-                .map(record -> new Promotion(Integer.parseInt(String.valueOf(record.get("id"))),
-                        String.valueOf(record.get("name"))))
+                .map(record -> new Promotion(String.valueOf(record.get("EVENTIDENTIFIER")),
+                        String.valueOf(record.get("DESCRIPTION")),
+                        Date.valueOf(((Timestamp) record.get("STARTDATETIME")).toLocalDateTime().toLocalDate()),
+                        Date.valueOf(((Timestamp) record.get("ENDDATETIME")).toLocalDateTime().toLocalDate())))
                 .collect(Collectors.toList());
-        /*for(Map<String,Object> promoRow : promoRows){
-            Promotion promotion = new Promotion();
-            promotion.setId(Integer.parseInt(String.valueOf(promoRow.get("id"))));
-            promotion.setName(String.valueOf(promoRow.get("name")));
-            promoList.add(promotion);
-        }*/
-
         return promoList;
     }
 }

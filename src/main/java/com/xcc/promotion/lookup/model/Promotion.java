@@ -1,31 +1,52 @@
 package com.xcc.promotion.lookup.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class Promotion implements Serializable {
     private static final long serialVersionUID = -7788619177798333712L;
 
-    private int id;
-    private String name;
+    private String eventIdentifier;
+    private String description;
+    private Date startDate;
+    private Date endDate;
 
-    public int getId() {
-        return id;
+    public String getEventIdentifier() {
+        return eventIdentifier;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setEventIdentifier(String eventIdentifier) {
+        this.eventIdentifier = eventIdentifier;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Promotion(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Promotion(String eventIdentifier, String description, Date startDate, Date endDate) {
+        this.eventIdentifier = eventIdentifier;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 }
